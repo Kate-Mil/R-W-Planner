@@ -23,16 +23,8 @@ const register = async (req, res) => {
 
   const hashPassword = await bcrypt.hash(password, 10);
 
-  const avatarUrl = gravatar.url(email, {
-    protocol: "http",
-    s: "250",
-    r: "pg",
-    d: "mp",
-  });
-
   const newUser = await User.create({
     ...req.body,
-    avatarUrl,
     password: hashPassword,
     verificationToken,
   });
@@ -46,8 +38,6 @@ const register = async (req, res) => {
 
   res.status(201).json({
     email: newUser.email,
-    subscription: "starter",
-    avatarUrl,
   });
 };
 
@@ -134,13 +124,13 @@ const getCurrent = async (req, res) => {
   res.status(200).json({ email, subscription, avatarUrl });
 };
 
-const updateSubscription = async (req, res) => {
-  const { subscription } = req.body;
-  const user = req.user;
-  await User.findByIdAndUpdate(user._id, { subscription });
+// const updateSubscription = async (req, res) => {
+//   const { subscription } = req.body;
+//   const user = req.user;
+//   await User.findByIdAndUpdate(user._id, { subscription });
 
-  res.status(201).json({ email: user.email, subscription });
-};
+//   res.status(201).json({ email: user.email, subscription });
+// };
 
 const updateAvatar = async (req, res) => {
   if (!req.file) {
@@ -170,6 +160,6 @@ export default {
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
-  updateSubsctiption: ctrlWrapper(updateSubscription),
+  // updateSubsctiption: ctrlWrapper(updateSubscription),
   updateAvatar: ctrlWrapper(updateAvatar),
 };

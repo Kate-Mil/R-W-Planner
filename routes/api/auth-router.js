@@ -33,13 +33,6 @@ authRouter.get("/current", authenticate, authController.getCurrent);
 authRouter.post("/logout", authenticate, authController.logout);
 
 authRouter.patch(
-  "/subscription",
-  isEmptyBody,
-  authenticate,
-  authController.updateSubsctiption
-);
-
-authRouter.patch(
   "/avatars",
   upload.single("avatar"),
   authenticate,

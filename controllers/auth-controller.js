@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { HttpError, sendEmail } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
-import gravatar from "gravatar";
 import Jimp from "jimp";
 import { nanoid } from "nanoid";
 
@@ -108,7 +107,6 @@ const login = async (req, res) => {
     token: token,
     user: {
       email: user.email,
-      subscription: user.subscription,
     },
   });
 };
